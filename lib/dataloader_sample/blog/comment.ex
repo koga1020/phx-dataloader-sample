@@ -2,9 +2,12 @@ defmodule DataloaderSample.Blog.Comment do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias DataloaderSample.Blog.Post
+
   schema "comments" do
     field :body, :string
-    field :post_id, :id
+
+    belongs_to :post, Post
 
     timestamps()
   end
