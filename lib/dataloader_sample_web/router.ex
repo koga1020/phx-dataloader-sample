@@ -5,8 +5,12 @@ defmodule DataloaderSampleWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", DataloaderSampleWeb do
+  scope "/api" do
     pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: DataloaderSampleWeb.Schema,
+      interface: :simple
   end
 
   # Enables LiveDashboard only for development
