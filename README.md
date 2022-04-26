@@ -1,19 +1,21 @@
 # DataloaderSample
 
-To start your Phoenix server:
+## version
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+```
+$ elixir -v
+Erlang/OTP 24 [erts-12.0.1] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [jit]
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Elixir 1.13.0 (compiled with Erlang/OTP 22)
+```
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+```
+$ mix phx.new --version
+Phoenix installer v1.6.7
+```
 
-## Learn more
+## setup
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```
+$ mix setup
+```
