@@ -1,11 +1,12 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     DataloaderSample.Repo.insert!(%DataloaderSample.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias DataloaderSample.Blog.Comment
+alias DataloaderSample.Blog.Post
+
+Enum.each(1..5, fn _ ->
+  post =
+    %Post{title: Faker.Lorem.sentence(), body: Faker.Lorem.paragraph()}
+    |> DataloaderSample.Repo.insert!()
+
+  Enum.each(1..5, fn _ ->
+    %Comment{body: Faker.Lorem.paragraph(), post_id: post.id} |> DataloaderSample.Repo.insert()
+  end)
+end)
