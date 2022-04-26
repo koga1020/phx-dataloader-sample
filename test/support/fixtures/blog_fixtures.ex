@@ -18,4 +18,18 @@ defmodule DataloaderSample.BlogFixtures do
 
     post
   end
+
+  @doc """
+  Generate a comment.
+  """
+  def comment_fixture(attrs \\ %{}) do
+    {:ok, comment} =
+      attrs
+      |> Enum.into(%{
+        body: "some body"
+      })
+      |> DataloaderSample.Blog.create_comment()
+
+    comment
+  end
 end
