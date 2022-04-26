@@ -1,6 +1,9 @@
 defmodule DataloaderSampleWeb.Schema do
   use Absinthe.Schema
 
+  import Absinthe.Resolution.Helpers
+
+  alias DataloaderSample.Blog
   alias DataloaderSampleWeb.BlogResolver
 
   object :post do
@@ -9,10 +12,7 @@ defmodule DataloaderSampleWeb.Schema do
     field :body, non_null(:string)
 
     field :comments, non_null(list_of(:comment)) do
-      resolve(fn post, _, _ ->
-        comments = Ecto.assoc(post, :comments) |> DataloaderSample.Repo.all()
-        {:ok, comments}
-      end)
+      resolve(dataloader(Blog))
     end
   end
 
@@ -25,5 +25,17 @@ defmodule DataloaderSampleWeb.Schema do
     field :posts, non_null(list_of(non_null(:post))) do
       resolve(&BlogResolver.list_posts/3)
     end
+  end
+
+  def context(ctx) do
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(Blog, Blog.data())
+
+    Map.put(ctx, :loader, loader)
+  end
+
+  def plugins() do
+    [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
   end
 end
